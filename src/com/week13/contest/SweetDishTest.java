@@ -87,8 +87,11 @@ public class SweetDishTest {
 		System.out.println(solve(A,3,7));
 
 	}
-	
+
+	private static char[] solve(int[] a, int i, int i1) {
+
+		return null;
+	}
 
 
-	
 }
