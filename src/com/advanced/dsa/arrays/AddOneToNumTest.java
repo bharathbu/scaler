@@ -63,50 +63,34 @@ import java.util.List;
 public class AddOneToNumTest {
     public static void main(String[] args) {
         ArrayList<Integer> A = new ArrayList<Integer>();
-        //A.add(1);A.add(2);A.add(4);A.add(3);A.add(0);A.add(2);A.add(1);A.add(9);
-        A.add(0);A.add(3);A.add(9);A.add(9);
+        A.add(0);A.add(3);A.add(7);A.add(6);A.add(4);A.add(0);A.add(5);A.add(5);A.add(5);
+        //A.add(0);A.add(3);A.add(9);A.add(9);
         System.out.println(plusOne(A));
 
     }
 
     public static ArrayList<Integer> plusOne(ArrayList<Integer> A) {
-        int n = A.size(),temp=0,carry=0,i;
+        int n = A.size(),temp=0,carry=1,i;
         ArrayList<Integer> result = new ArrayList<>();
-        for (i=0;i<n;i++){
-            result.add(A.get(i));
+        for(i=n-1;i>=0;i--){
+            temp=A.get(i);
+            temp+=carry;
+            carry=0;
+
+            if(temp==10){
+                carry=1;
+                temp=0;
+            }
+            A.set(i,temp);
         }
-        temp = result.get(n-1)+1;
-        if(temp<10){
-            result.set(n-1,temp);
-        }else{
-            carry = temp/10;
-            for(i=n-1;i>=1;i--){
-                if(carry == 1){
-                    temp = result.get(i)+carry;
-                    result.set(i,temp%10);
-                    carry=temp/10;
-                }else{
-                    carry = 0;
-                    break;
-                }
-            }
-            if(carry == 1){
-                temp = result.get(0)+carry;
-                if(temp == 10){
-                    result.add(0,1);
-                    result.set(1,0);
-                }else{
-                    result.set(0,result.get(0)+carry);
-                    result.set(1,0);
-                }
-            }
-            i=0;
-            while(result.get(i) == 0 && i<n){
-                result.remove(i);
-                i++;
-                n--;
-            }
+        if(carry == 1)
+            result.add(1);
+        for(int x : A){
+            if(x==0 && result.size()==0)
+                continue;
+            result.add(x);
         }
+
         return result;
     }
 }
