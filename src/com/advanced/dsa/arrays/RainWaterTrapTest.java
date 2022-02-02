@@ -79,7 +79,10 @@ public class RainWaterTrapTest {
         int n = A.size(),max = Integer.MIN_VALUE,wi=0,result=0;
         List<Integer> lMax = new ArrayList<Integer>();
         int[] rMax = new int[n];
-        //List<Integer> water = new ArrayList<Integer>();
+        //List<Integer> water = new
+        //
+        //
+        // ArrayList<Integer>();
 
         for(int i=0;i<n;i++) {
             if(A.get(i)>max)
