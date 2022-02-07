@@ -63,34 +63,28 @@ public class MaxNonNegativeSubarraySumTest {
 
     public static ArrayList<Integer> maxset(ArrayList<Integer> A) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        ArrayList<Integer> ps = new ArrayList<Integer>();
-
-        int ans = Integer.MIN_VALUE, n=A.size(),sum=0,temp,index=-1;
-        ps.add(A.get(0));
-        if(ps.get(0)<0)
-            ps.set(0,0);
-        for(int i=1;i<n;i++){
-            temp = A.get(i);
-            if(temp>=0)
-                ps.add(ps.get(i-1)+temp);
-            else
-                ps.add(0);
-        }
+        int aLeft =-1,aRight=-1,left=0,right=0,n=A.size(),temp=0;
+        long sum=0,maxSum=Integer.MIN_VALUE;
         for(int i=0;i<n;i++){
-            temp = ps.get(i);
-            if(temp > ans) {
-                ans = temp;
-                index = i;
+            temp=A.get(i);
+            if(temp>=0){
+                sum+=temp;
+                if(sum>maxSum || (sum==maxSum && aRight-aLeft<right-left)){
+                    aLeft=left;
+                    aRight=right;
+                    maxSum = sum;
+                }
+            }else{
+                sum = 0;
+                left=i+1;
+            }
+            right++;
+        }
+        if(aLeft>-1){
+            for(int i=aLeft;i<=aRight;i++){
+                result.add(A.get(i));
             }
         }
-        for(int i=index;i>=0;i--){
-            temp = ps.get(i);
-            if(temp == 0)
-                break;
-            else
-                result.add(A.get(i));
-        }
-        Collections.reverse(result);
         return result;
     }
 }
