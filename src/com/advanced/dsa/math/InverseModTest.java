@@ -73,6 +73,16 @@ public class InverseModTest {
     public static int solve(int A, int B) {
         // As per fermat's theorem, a^m-1 % m = 1 mod m
         // a^-1 %m = a^m-2%m
+
+        /*
+        Fermats’s little theorem:
+
+AB-1 ≡ 1 (mod B) where B is prime and A is not a multiple of B.
+Multiply by A-1 on both sides, We get
+
+AB-2 ≡ A-1 (mod B) where B is prime and A is not a multiple of B.
+We just have to calculate AB-2 (mod B). This will be the modular multiplicative inverse of A under modulo B.
+         */
         int result=0;
         result = PowerFunTest.pow(A,B-2,B);
         return result;
