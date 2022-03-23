@@ -40,8 +40,8 @@ public class GCDTest {
         return gcd(A-B,B);
     }*/
     public static int gcd(int A, int B) {
-        if(A==0)
-            return B;
-        return gcd(B%A,A);
+        if(B==0)
+            return A;
+        return gcd(B,A%B);
     }
 }
