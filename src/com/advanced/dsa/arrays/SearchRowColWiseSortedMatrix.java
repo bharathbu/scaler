@@ -53,11 +53,26 @@ package com.advanced.dsa.arrays;
 public class SearchRowColWiseSortedMatrix {
 
     public static void main(String[] args){
-
+        int[][] A = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}};
+       int B = 2;
+       System.out.println(solve(A,B));
     }
 
     public static int solve(int[][] A, int B) {
-
-        return 0;
+        int n=A.length,m=A[0].length,res=-1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(A[i][j]==B){
+                    res=(i+1)*1009;
+                    res+=(j+1);
+                    return res;
+                }else if(A[i][j]>B)
+                    break;
+            }
+        }
+        return -1;
     }
 }
