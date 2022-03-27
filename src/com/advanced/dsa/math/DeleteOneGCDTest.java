@@ -68,10 +68,40 @@ package com.advanced.dsa.math;
 public class DeleteOneGCDTest {
 
     public static void main(String[] args){
-        int[] A = {};
+        int[] A = {5,15,30};
         System.out.println(solve(A));
     }
     public static int solve(int[] A) {
-        return  0;
+        /*
+        We can maintain two arrays for prefix and suffix gcd; likewise, we do for prefix sum and suffix sum.
+        Then,for each index, i:1 to N calculate gcd(prefix[i-1],suffix[i+1]) and return the maximum among all.
+         */
+        int n = A.length,gcd=0,result=Integer.MIN_VALUE;
+        int[] prefix = new int[n];
+        int[] suffix = new int[n];
+        for(int i=0;i<n;i++){
+            gcd = gcd(gcd,A[i]);
+            prefix[i]=gcd;
+        }
+        gcd=0;
+        for(int i=0;i<n;i++){
+            gcd = gcd(gcd,A[n-i-1]);
+            suffix[n-i-1]=gcd;
+        }
+        result=suffix[1];
+        for(int i=1;i<n-1;i++){
+            gcd = gcd(prefix[i-1],suffix[i+1]);
+            if(gcd>result)
+                result=gcd;
+        }
+        if(prefix[n-2]>result)
+            result=prefix[n-2];
+        return  result;
+    }
+
+    public static int gcd(int A, int B) {
+        if(B==0)
+            return A;
+        return gcd(B,A%B);
     }
 }
