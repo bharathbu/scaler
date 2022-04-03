@@ -83,6 +83,11 @@ public class MaxChunksToSortTest {
     }
 
     public static int solve(ArrayList<Integer> A) {
+       /*
+       The smallest leftmost possible chunk is the smallest index at which A[0….i] contains all elements up to i.
+        We can check that if a maximum of A[0…..i] is i, then we can take it as a separate chunk.
+        Find the smallest possible leftmost chunk using the above idea, and after that, we can proceed similarly for the remaining part.
+        */
         int chunks=0,max=0,n=A.size(),temp;
         for(int i=0;i<n;i++){
             temp=A.get(i);

@@ -61,7 +61,29 @@ public class CountDivisorsTest {
         System.out.println(solve(A));
     }
     public static int[] solve(int[] A) {
-        int n = A.length,count=0,temp;
+        int n = A.length,count=0,max=Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            if(A[i]>max)
+                max=A[i];
+        }
+        int[] spf = new int[max+1];
+        for (int i = 1; i <= max; i++) {
+            spf[i] = i;
+        }
+        for (int i = 2; i*i < max; i++) {
+            if(spf[i] == i){
+                for(int j=i*i;j<=max;j+=i){
+                    spf[j] = Math.min(spf[j],i);
+                }
+            }
+        }
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            result[i] = getDivisorCount(A[i],spf);
+        }
+
+        return result;
+        /*int n = A.length,count=0,temp;
         int[] result = new int[n];
 
         for(int i=0;i<n;i++){
@@ -77,6 +99,20 @@ public class CountDivisorsTest {
             }
             result[i] = count;
         }
-        return result;
+        return result;*/
+    }
+
+    private static int getDivisorCount(int N, int[] spf) {
+        int total=1,temp,c;
+        while(N>1){
+            c=0;
+            temp=spf[N];
+            while(N%temp == 0){
+                c++;
+                N=N/temp;
+            }
+            total=total*(c+1);
+        }
+        return total;
     }
 }
