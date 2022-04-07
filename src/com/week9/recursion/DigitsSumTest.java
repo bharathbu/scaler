@@ -70,13 +70,16 @@ public class DigitsSumTest {
 	}
 	
 	public static int solve(int A) {
+		if(A == 0) return A;
+		return (A%10)+solve(A/10);
+		/*
 		if(A<10) {
 			return A;
 		}else{
 			int rem=A%10;
 			int quo=A/10;
 			return rem+solve(quo);
-		}
+		}*/
     }
 
 }
