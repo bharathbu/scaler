@@ -17,14 +17,19 @@ public class ReverseStringTest {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String str = sc.nextLine();	
-		printReverse(str,0,str.length()-1);
+		printReverse(str);
 	}
 	
-	public static void printReverse(String str,int s,int e) {
-		if(e==s-1) {
-			return;
-		}
-		System.out.print(str.charAt(e));
-		printReverse(str,s,e-1);
+	public static void printReverse(String str) {
+		/*
+		Recursive function (reverse) takes string (S) as input and calls itself with next location to passed pointer (s+1).
+
+		Recursion continues this way, when pointer reaches ‘\0’, all functions accumulated in stack print char at passed location (S) and print one by one.
+
+		Time Complexity: O(n)
+		 */
+		if(str.length() == 0) return;
+		printReverse(str.substring(1));
+		System.out.print(str.charAt(0));
 	}
 }

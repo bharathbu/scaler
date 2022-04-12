@@ -81,13 +81,21 @@ public class KthSymbolTest {
 	}
 	
 	public static int solve(int A, int B) {
-		if(A==1 && B==1)
+		/*
+		index i at ath row  will generate (2i and 2i+1) in (a+1)th row
+		 */
+		if(B==1) return 0;
+		int x = solve(A-1,(B+1)/2);
+		if((B+1)%2 == 0) return x;
+		else return (1-x);
+
+		/*if(A==1 && B==1)
 			return 0;
 		int mid = (int) (Math.pow(2, A-1)/2);
 		if(B<=mid)
 			return solve(A-1,B);
 		else
-			return (solve(A-1,B-mid)==0?1:0);
+			return (solve(A-1,B-mid)==0?1:0);*/
     }
 
 }

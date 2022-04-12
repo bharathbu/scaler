@@ -80,11 +80,7 @@ public class FibonacciTest {
 
 	}
 	public static int findAthFibonacci(int A) {
-		if(A==0) {
-			return 0;
-		}else if(A==1) {
-			return 1;
-		}
+		if(A==0|| A==1) return A;
 		return findAthFibonacci(A-1)+findAthFibonacci(A-2);
     }
 
