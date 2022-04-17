@@ -70,8 +70,7 @@ Explanation 2:
  */
 package com.week13.contest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Bharath
@@ -83,14 +82,55 @@ public class SweetDishTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int[] A = {2, 2, 4, 5};
+		Integer[] A1 = {2, 2, 4, 5};
+		ArrayList<Integer> A = new ArrayList<Integer>(Arrays.asList(A1));
 		System.out.println(solve(A,3,7));
 
 	}
 
-	private static char[] solve(int[] a, int i, int i1) {
+	private static int solve(ArrayList<Integer> A, int B, int C) {
 
-		return null;
+		int n=A.size(),temp=0,res=0;
+		long sum=0;
+		boolean flag=false;
+		Set<Integer> set = new HashSet<Integer>();
+		for(int i=0;i<n;i++){
+			if(isPrime(A.get(i)))
+				set.add(A.get(i));
+		}
+		for(int i=1;i<(1<<n);i++){
+			flag=false;
+			for(int j=0;j<n;j++){
+				if(checkBit(i,j)){
+					temp= A.get(j);
+					if(set.contains(temp))
+						flag=true;
+					sum+=temp;
+				}
+			}
+			if(flag && sum>=B && sum<=C)
+				res++;
+			sum=0;
+		}
+		return res;
+	}
+
+	private static boolean checkBit(int i, int j) {
+		if((i & 1<<j) >0)
+			return true;
+		else return false;
+	}
+
+	private static boolean isPrime(Integer n) {
+		if (n <= 1)
+			return false;
+
+		// Check from 2 to square root of n
+		for (int i = 2; i*i <= n; i++)
+			if (n % i == 0)
+				return false;
+
+		return true;
 	}
 
 
