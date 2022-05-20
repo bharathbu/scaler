@@ -59,8 +59,6 @@
  */
 package com.advanced.dsa.math;
 
-import sun.security.util.ArrayUtil;
-
 import java.util.*;
 
 public class AllGCDPairTest {
