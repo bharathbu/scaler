@@ -60,6 +60,7 @@ public class PalindromeTest {
         A.next=new ListNode(2);
         A.next.next=new ListNode(1);
         System.out.println(lPalin(A));
+        System.out.println(Math.pow(1.01,365));
     }
     public static int lPalin(ListNode A) {
         ListNode f = A;
