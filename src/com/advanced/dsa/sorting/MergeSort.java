@@ -52,6 +52,7 @@ public class MergeSort {
     public static ArrayList<Integer> solve(ArrayList<Integer> A) {
        //ArrayList<Integer> result = new ArrayList<Integer>();
         int n = A.size();
+        A.remove(A.get(0));
         mergeSort(A,0,n-1);
         return A;
     }
