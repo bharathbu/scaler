@@ -1,5 +1,5 @@
 /**
- * Inorder Traversal
+ * norder Traversal
  *
  * Problem Description
  * Given a binary tree, return the inorder traversal of its nodes' values.
@@ -60,7 +60,6 @@
 package com.advanced.dsa.trees;
 
 import java.util.ArrayList;
-import java.util.Stack;
 /*
 Think stack.
 
@@ -74,25 +73,33 @@ Instead of calling the functions, can you put the nodes on a stack and process t
 
 How would your solution work if you could change the original tree?
 How would it work if you were not allowed to change the tree but use additional memory ( track the number of times a node has appeared in the tree )?
-How would it work if you were not even allowed the extra memory?
+
+How would it work if you were not even allowed the extra memory? -- Use Morris inorder traversal (Below code is the implementation)
  */
-public class InorderIterative {
+public class MorrisInorder {
 
     public ArrayList<Integer> inorderTraversal(TreeNode A) {
         ArrayList<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stk = new Stack<>();
         TreeNode curr = A;
-        while(curr!=null || !stk.isEmpty()){
-            if(curr != null){
-                stk.push(curr);
-                curr = curr.left;
+        while(curr !=null){
+            if(curr.left == null){
+                result.add(curr.val);
+                curr=curr.right;
             }else{
-                TreeNode temp = stk.pop();
-                result.add(temp.val);
-                curr = temp.right;
+                TreeNode temp = curr.left;
+                while(temp.right != null && temp.right != curr)
+                    temp = temp.right;
+                if(temp.right == null){
+                    temp.right = curr;
+                    curr = curr.left;
+                }
+                else if(temp.right == curr){
+                    temp.right = null;
+                    result.add(curr.val);
+                    curr = curr.right;
+                }
             }
         }
         return result;
     }
-
 }
