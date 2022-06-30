@@ -106,21 +106,22 @@ public class ShortestUniquePrefix {
         }
         return prefix;
     }
-}
-
-
-class Node
-{
-    char data;
-    int count;
-    Node[] children;
-    boolean isEnd;
-
-    Node(char data, int count)
+    private class Node
     {
-        this.data = data;
-        this.count= count;
-        this.children = new Node[26];
-        this.isEnd = false;
+        char data;
+        int count;
+        Node[] children;
+        boolean isEnd;
+
+        Node(char data, int count)
+        {
+            this.data = data;
+            this.count= count;
+            this.children = new Node[26];
+            this.isEnd = false;
+        }
     }
 }
+
+
+

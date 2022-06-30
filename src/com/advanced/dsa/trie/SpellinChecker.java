@@ -70,7 +70,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpellinChecker {
-    public class Node{
+    private class Node{
         boolean isEnd;
         Map<Character, Node> hm;
         public Node(){

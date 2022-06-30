@@ -66,10 +66,28 @@
  *  There is no path which has sum -1.
  */
 package com.advanced.dsa.trees;
-
+/*
+Recursion might make this problem much easier to solve.
+You just need to keep a track of the sum from the root to the current node.
+Then it becomes a question of just checking if the current node is a leaf node, and if so, do the sum match.
+ */
 public class PathSum {
 
     public int hasPathSum(TreeNode A, int B) {
-        return 0;
+        boolean status = sum(A, 0, B);
+        return status ? 1 : 0;
+    }
+    public boolean sum(TreeNode A, int curSum, int reqSum) {
+        if (A == null) {
+            return false;
+        }
+        if (A.left == null && A.right == null) {
+            curSum += A.val;
+            if (curSum == reqSum)
+                return true;
+            return false;
+        }
+        int sum = curSum + A.val;
+        return sum(A.left, sum, reqSum) || sum(A.right, sum, reqSum);
     }
 }
