@@ -76,38 +76,31 @@ package com.advanced.dsa.trees;
 
 public class CircularDLL {
 
+    class Holder{
+        TreeNode head;
+        TreeNode tail;
+    }
     TreeNode solve (TreeNode root) {
-        TreeNode curr = root;
-        TreeNode prev = null, head = null;
-        while(curr.left != null)
-            curr=curr.left;
-        head = curr;
-        curr = root;
-        while(curr !=null){
-            if(curr.left == null){
-                //result.add(curr.val);
-                prev = curr;
-                curr = curr.right;
-                prev.right = curr;
-                curr.left = prev;
-            }else{
-                TreeNode temp = curr.left;
-                while(temp.right != null && temp.right != curr)
-                    temp = temp.right;
-                if(temp.right == null){
-                    temp.right = curr;
-                    curr = curr.left;
-                }
-                else if(temp.right == curr){
-                    //temp.right = null;
-                    //result.add(curr.val);
-                    curr = curr.right;
-
-                }
-            }
+        Holder holder = new Holder() ;
+        helper(root,holder);
+        if(holder.tail != null && holder.head != null) {
+            holder.tail.right = holder.head;
+            holder.head.left = holder.tail;
         }
-        head.left = prev;
-        prev.right = head;
-        return head;
+        return holder.head;
+    }
+
+    public void helper(TreeNode root , Holder holder){
+        if(root == null) return;
+        helper(root.left,holder);
+//TreeNode tempRight = root.right;
+        if(holder.head == null) {
+            holder.head = root;
+        }else{
+            holder.tail.right = root;
+            root.left = holder.tail;
+        }
+        holder.tail = root;
+        helper(root.right,holder);
     }
 }
