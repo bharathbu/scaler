@@ -135,15 +135,10 @@ public class TopologicalSort {
                 g[B.get(i).get(0)] = new ArrayList<>();
             g[B.get(i).get(0)].add(B.get(i).get(1)); // For directed graph
         }
-        Collections.sort(B, new Comparator<ArrayList<Integer>>() {
-            @Override
-            public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
-                return o1.get(0)-o2.get(0);
-            }
-        });
+
         int[] in = new int[A+1];
         for (int i = 1; i <=A ; i++) {
-            for (int j = 0;g[i]!=null && j < g[i].size(); j++) {
+            for (int j = 0; g[i]!=null && j < g[i].size(); j++) {
                 int v = g[i].get(j);
                 in[v]++;
             }
