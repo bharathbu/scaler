@@ -70,31 +70,50 @@ package com.advanced.dsa.backtracking;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/*
+Think in terms of recursion.
+How can you simulate the choices of elements in a subset?
+
+For every element, you have 2 options.
+You may either include the element in your subset or do not include the element in your subset.
+Make the call for both cases.
+Remember to include a base case to avoid infinite calling.
+Can you also do it iteratively?
+Hint: You can use the fact that each number from 0 to 2N - 1, represent each subset of N elements.
+
+
+ */
 public class SubsetGen {
-    ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-    public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> A) {
-        int n = A.size();
-        Collections.sort(A,Collections.reverseOrder());
-        ArrayList<Integer> idx = new ArrayList<>();
-        for (int i = 0; i < n; i++)
-            idx.add(0);
-        generateAllSubsets(A,idx,n,0);
-        return result;
+    ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    public ArrayList < ArrayList < Integer >> subsets(ArrayList < Integer > A) {
+        Collections.sort(A);
+        ans = new ArrayList < > ();
+        ArrayList < Integer > cur = new ArrayList < > ();
+        solve(0, cur, A);
+        //sort list of list
+        Collections.sort(ans, (ArrayList < Integer > first, ArrayList < Integer > second) -> {
+            for (int i = 0; i < first.size() && i < second.size(); i++) {
+                if (first.get(i) < second.get(i))
+                    return -1;
+                if (first.get(i) > second.get(i))
+                    return 1;
+            }
+            if (first.size() > second.size())
+                return 1;
+            return -1;
+        });
+        return ans;
     }
 
-    private void generateAllSubsets(ArrayList<Integer> a, ArrayList<Integer> idx, int n, int i) {
-        if(i == n){
-            ArrayList<Integer> subset = new ArrayList<>();
-            for (int j = 0; j < n; j++) {
-                if(idx.get(j) == 1)
-                    subset.add(a.get(j));
-            }
-            result.add(subset);
+    void solve(int idx, ArrayList < Integer > cur, ArrayList < Integer > A) {
+        if (idx == A.size()) {
+            ans.add(new ArrayList < > (cur));
             return;
         }
-        idx.add(i,0);
-        generateAllSubsets(a,idx,n,i+1);
-        idx.add(i,1);
-        generateAllSubsets(a,idx,n,i+1);
+        solve(idx + 1, cur, A); // not take
+        int element = A.get(idx);
+        cur.add(element); // DO
+        solve(idx + 1, cur, A); // take
+        cur.remove(cur.size() - 1); // UNDO
     }
 }

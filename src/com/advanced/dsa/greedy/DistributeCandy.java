@@ -58,10 +58,39 @@
 package com.advanced.dsa.greedy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DistributeCandy {
-    public int candy(ArrayList<Integer> A) {
+ /*
+ Would greedily assigning the candy work here?
+Where should you start from?
 
-        return 0;
-    }
+Should you start assigning the candies from the least rating guy to the guy with the most rating or vice versa?
+
+Greedy will work here ( Think of a supportive proof as an assignment ).
+
+Start with the guy with the least rating. Obviously, he will receive one candy.
+
+If he did receive more than one candy, we could lower it to 1 as none of the neighbors have a higher rating.
+Now, let us move to the one which is the second least. If the least element is its neighbor, then it receives two candies, else we can get away with assigning it just one candy.
+
+We keep repeating the same process to arrive at the optimal solution.
+  */
+ public int candy(int[] A) {
+     int n = A.length;
+     int[] candies = new int[n + 1];
+     Arrays.fill(candies, 1);
+     for (int i = 2; i <= n; i++) {
+         if (A[i - 1] > A[i - 2])
+             candies[i] = candies[i - 1] + 1;
+     }
+     for (int i = n - 1; i >= 1; i--) {
+         if (A[i - 1] > A[i]) {
+             candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+         }
+     }
+     int s = 0;
+     for (int i = 1; i <= n; i++) s += candies[i];
+     return s;
+ }
 }

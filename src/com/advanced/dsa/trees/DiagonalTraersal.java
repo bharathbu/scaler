@@ -94,9 +94,37 @@
 package com.advanced.dsa.trees;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DiagonalTraersal {
+    HashMap<Integer, ArrayList<Integer>> hashmap = new HashMap<>();
     public ArrayList<Integer> solve(TreeNode A) {
-        return null;
+        ArrayList<Integer> result = new ArrayList<>();
+        preOrder(A,0);
+
+        for(int i = 0; i < hashmap.size(); i++) {
+            result.addAll(hashmap.get(i));
+        }
+        return result;
+    }
+    public void preOrder(TreeNode A, int index) {
+        if(A == null) return;
+        ArrayList<Integer> temp = null;
+        if(hashmap.containsKey(index)) {
+            temp = hashmap.get(index);
+        }
+        else {
+            temp = new ArrayList<>();
+        }
+
+        temp.add(A.val);
+        hashmap.put(index,temp);
+        if(A.left != null) {
+            preOrder(A.left,index+1);
+        }
+        if(A.right != null) {
+            preOrder(A.right,index);
+        }
+
     }
 }
